@@ -1,13 +1,10 @@
+import CollaborativeRoom from "@/components/CollaborativeRoom";
 
-interface Props {
-    name: string;
-}
-
-const Document: React.FC<Props> = ({ name }) => {
+const Document = () => {
     return (
-        <div>
-            <h1>Hello, {name}!</h1>
-        </div>
+        <main className="flex w-full flex-col items-center">
+            <CollaborativeRoom />
+        </main>
     );
 };
 
