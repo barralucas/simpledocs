@@ -13,7 +13,6 @@ const Document = async () => {
   if (!clerkUser) redirect('/sign-in');
 
   const roomDocuments = await getDocuments(clerkUser.emailAddresses[0].emailAddress);
-  console.log('roomDocuments: ', roomDocuments);
 
   return (
     <main className="home-container">
