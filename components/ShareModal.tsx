@@ -17,6 +17,7 @@ import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import UserTypeSelector from "./UserTypeSelector";
 import Collaborator from "./Collaborator";
+import { updateDocumentAccess } from "@/lib/actions/room.actions";
 
 
 const ShareModal = ({
@@ -33,7 +34,18 @@ const ShareModal = ({
     const [email, setEmail] = useState('');
     const [userType, setUserType] = useState<UserType>('viewer');
 
-    async function shareDocumentHandler() { }
+    async function shareDocumentHandler() {
+        setLoading(true);
+
+        await updateDocumentAccess({
+            roomId,
+            email,
+            userType: userType as UserType,
+            updatedBy: user.info,
+        });
+
+        setLoading(false);
+    }
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -61,7 +73,7 @@ const ShareModal = ({
                 <Label htmlFor="email" className="mt-6 text-blue-100">Email adress</Label>
                 <div className="flex items-center gap-3">
                     <div className="flex flex-1 rounded-md bg-dark-400">
-                        <Input 
+                        <Input
                             type="email"
                             id="email"
                             value={email}
@@ -70,16 +82,16 @@ const ShareModal = ({
                             className="share-input"
                         />
 
-                        <UserTypeSelector 
+                        <UserTypeSelector
                             userType={userType}
                             setUserType={setUserType}
                         />
                     </div>
 
-                    <Button 
-                    type="submit"
+                    <Button
+                        type="submit"
                         onClick={shareDocumentHandler}
-                        className="gradient-blue flex h-full gap-1 px-5"  
+                        className="gradient-blue flex h-full gap-1 px-5"
                         disabled={loading}
                     >
                         {loading ? 'Sending...' : 'Invite'}
@@ -89,7 +101,7 @@ const ShareModal = ({
                 <div className="my-2 space-y-2">
                     <ul className="flex flex-col">
                         {collaborators.map((collaborator) => (
-                            <Collaborator 
+                            <Collaborator
                                 key={collaborator.id}
                                 roomId={roomId}
                                 creatorId={creatorId}

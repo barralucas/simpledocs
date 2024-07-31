@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useState } from "react";
 import UserTypeSelector from "./UserTypeSelector";
 import { Button } from "./ui/button";
+import { removeCollaborator, updateDocumentAccess } from "@/lib/actions/room.actions";
 
 
 const Collaborator = ({
@@ -15,11 +16,24 @@ const Collaborator = ({
     const [loading, setLoading] = useState(false);
 
     async function shareDocumentHandler(type: string) {
+        setLoading(true);
 
+        await updateDocumentAccess({
+            roomId,
+            email: collaborator.email,
+            userType: type as UserType,
+            updatedBy: user,
+        });
+
+        setLoading(false);
     }
 
     async function removeCollaboratorHandler(email: string) {
+        setLoading(true);
 
+        await removeCollaborator({roomId, email});
+
+        setLoading(false);
     }
 
     return (
