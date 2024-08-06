@@ -5,7 +5,8 @@ const nextConfig = {
         ignoreBuildErrors: true
     },
     images: {
-        remotePatterns: [{ protocol: 'https', hostname: 'img.clerk.com' }]
+        remotePatterns: [{ protocol: 'https', hostname: 'img.clerk.com' }],
+        disableStaticImages: true
     }
 };
 
