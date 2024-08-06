@@ -6,7 +6,7 @@ const nextConfig = {
     },
     images: {
         remotePatterns: [{ protocol: 'https', hostname: 'img.clerk.com' }],
-        disableStaticImages: true
+        disableStaticImages: true,
     }
 };
 
